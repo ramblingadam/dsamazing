@@ -3,17 +3,20 @@ import { Inter } from 'next/font/google'
 
 //// COMPONENTS
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import Main from '@/components/Main'
 
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main
-      className="min-h-screen bg-white text-black font-sans"
+    <div
+      className="app-wrapper min-h-screen bg-white text-black font-sans box-border flex flex-col"
     >
       <Header />
-      
-    </main>
+      <Main />
+      <Footer />
+    </div>
   )
 }
 
