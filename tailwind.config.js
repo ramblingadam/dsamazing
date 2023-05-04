@@ -26,7 +26,10 @@ module.exports = {
       addUtilities({
         '.text-shadow': {
           'text-shadow': '-1px 1px 2px black'
-        }
+        },
+        '.text-outline': {
+          'text-shadow': '0 0 1px black, 0 0 2px black, 0 0 3px black, -1px 1px 2px black, -1px 1px 3px black'
+        },
       })
     }),
   ],

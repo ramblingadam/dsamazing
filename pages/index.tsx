@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import Store from '@/contexts/DSContext'
+import { useState } from 'react'
+import StringOrNull from '@/_types/StringOrNull'
 
 //// COMPONENTS
 import Header from '@/components/Header'
@@ -10,12 +12,21 @@ import Main from '@/components/Main'
 // const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
+  const [currentStructure, setCurrentStructure] = useState('')
+
+  const updateCurrentStructure = (dsa:string) => {
+    setCurrentStructure(dsa)
+  }
+
   return (
     <div
       className="box-border flex flex-col min-h-screen font-sans antialiased text-black bg-teal-100 app-wrapper"
     >
       <Store.Provider value={{location:'main'}}>
-        <Header />
+        <Header
+          currentStructure={currentStructure}
+          setCurrentStructure={updateCurrentStructure}
+        />
         <Main />
         <Footer />
       </Store.Provider>
