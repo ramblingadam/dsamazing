@@ -4,7 +4,7 @@ import { useState, MouseEvent } from 'react'
 import CurrentStructure from '@/_types/CurrentStructure'
 
 //// COMPONENT
-const Main = ({currentStructure, setCurrentStructure}: CurrentStructure) => {
+const Main = () => {
 
   
   
@@ -19,7 +19,7 @@ const Main = ({currentStructure, setCurrentStructure}: CurrentStructure) => {
   ]
 
   const handleMainMenuItemClick = (e:MouseEvent) => {
-    console.log(e.target)
+    // console.log(e.target)
     // setCurrentDS(e.target)
   }
 
@@ -31,8 +31,6 @@ const Main = ({currentStructure, setCurrentStructure}: CurrentStructure) => {
           <MainMenuItem
             key={i}
             item={dataStructure}
-            currentStructure={currentStructure}
-            setCurrentStructure={setCurrentStructure}
           />
         ))}
       </ul>
