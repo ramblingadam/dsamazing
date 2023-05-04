@@ -5,7 +5,8 @@ import { useState, MouseEvent } from 'react'
 //// COMPONENT
 const Main = () => {
 
-
+  
+  
   const [currentDS, setCurrentDS] = useState(null)
   
   const dataStructures = [
@@ -17,18 +18,19 @@ const Main = () => {
   ]
 
   const handleMainMenuItemClick = (e:MouseEvent) => {
-    setCurrentDS(e.target.item)
+    console.log(e.target)
+    // setCurrentDS(e.target)
   }
 
   return (
     <main className='w-full'>
       {!currentDS ? (
-      <ul>
+      <ul onClick={handleMainMenuItemClick}>
         {dataStructures.map((dataStructure, i) => (
           <MainMenuItem
             key={i}
             item={dataStructure}
-            onClick={handleMainMenuItemClick}
+            
           />
         ))}
       </ul>

@@ -1,20 +1,27 @@
+import { useContext, MouseEvent } from "react"
+import Store from "@/contexts/DSContext"
+
+
 //// PROPTYPES
 type MainMenuItemProps = {
-  item: string
+  item: string,
+  // onClick: () => void
 }
 
 //// COMPONENT
+// const MainMenuItem = ({ item }: MainMenuItemProps) => {
 const MainMenuItem = ({ item }: MainMenuItemProps) => {
+  const store = useContext(Store)
 
 
-
-
+  const handleMainMenuItemClick = (e:MouseEvent) => {
+    store.location = item
+  }
 
   return (
     /* <li className={classes}>{item}</li> */
-    <li className='main-menu-item btn m-4 flex justify-center rounded-full border-2 border-black bg-yellow-300 p-4 font-bold duration-500 hover:cursor-pointer hover:border-white'>
+    <li className='flex justify-center p-4 m-4 text-2xl font-bold duration-200 bg-purple-300 border-2 border-black rounded-full shadow-inner3d text-xxl font-xl main-menu-item btn hover:cursor-pointer hover:border-purple hover:bg-yellow-300 active:shadow-none' onClick={handleMainMenuItemClick}>
       {item}
-
     </li>
   )
 }
