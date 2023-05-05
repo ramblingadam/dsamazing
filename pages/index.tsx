@@ -7,12 +7,13 @@ import Footer from '@/components/Footer'
 import Main from '@/components/Main'
 
 
+
 export default function Home() {
-  const [currentStructure, setCurrentStructure] = useState('')
+  const [currentStructure, setCurrentStructure] = useState<string | null>(null)
 
   return (
     <div
-      className="box-border flex flex-col min-h-screen font-sans antialiased text-black bg-teal-100 app-wrapper"
+      className="app-wrapper box-border flex flex-col min-h-screen font-sans antialiased text-black bg-teal-100"
     >
       <CurrentDSContext.Provider value={{structure: currentStructure, setStructure: setCurrentStructure}}>
         <Header />

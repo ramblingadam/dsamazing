@@ -1,14 +1,15 @@
 import MainMenuItem from './MainMenuItem'
 import DataStructure from './DataStructure'
-import { useState, MouseEvent } from 'react'
-import CurrentStructure from '@/_types/CurrentStructure'
+import { useState, MouseEvent, useContext } from 'react'
+import { CurrentDSContext } from '@/contexts/CurrentDS'
+
 
 //// COMPONENT
 const Main = () => {
+  const {structure} = useContext(CurrentDSContext)
+  
+  
 
-  
-  
-  const [currentDS, setCurrentDS] = useState(null)
   
   const dataStructures = [
     'Linked List',
@@ -25,7 +26,7 @@ const Main = () => {
 
   return (
     <main className='w-full max-w-3xl mx-auto'>
-      {!currentDS ? (
+      {!structure ? (
       <ul onClick={handleMainMenuItemClick}>
         {dataStructures.map((dataStructure, i) => (
           <MainMenuItem
