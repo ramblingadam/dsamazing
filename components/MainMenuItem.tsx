@@ -17,7 +17,7 @@ const MainMenuItem = ({ item }: MainMenuItemProps)=> {
   return (
     /* <li className={classes}>{item}</li> */
     <li
-      className='flex justify-center p-4 m-4 text-2xl font-bold duration-200 bg-purple-300 border-2 border-black rounded-full shadow-inner3d text-xxl font-xl main-menu-item btn hover:cursor-pointer hover:border-purple hover:bg-yellow-300 active:shadow-none'
+      className='bg-secondary-300 shadow-inner3d text-xxl font-xl main-menu-item btn hover:cursor-pointer hover:border-purple hover:bg-highlight-300 active:shadow-none flex justify-center p-4 m-4 text-2xl font-bold duration-200 border-2 border-black rounded-full'
       onClick={() => {
         setStructure(item)
       }}

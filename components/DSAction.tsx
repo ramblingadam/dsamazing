@@ -9,7 +9,7 @@ type DSActionTypes = {
 }
 
 const DSAction = ({title, inputType, iconClass, action}:DSActionTypes) => {
-  const [inputValue, setInputValue] = useState<number | string>()
+  const [inputValue, setInputValue] = useState<number | string>('')
 
   const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value)
@@ -17,7 +17,9 @@ const DSAction = ({title, inputType, iconClass, action}:DSActionTypes) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if(inputValue === '') return
     action(inputValue)
+    setInputValue('')
   }
 
   return (
