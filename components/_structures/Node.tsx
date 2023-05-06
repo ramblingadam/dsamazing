@@ -7,7 +7,7 @@ type NodeProps = {
 
 //// COMPONENT
 const Node = ({ value, id, newNode }: NodeProps) => {
-  console.log(value, id, newNode)
+  // console.log(value, id, newNode)
   return (
     <div className='flex mt-4'>
       {value === undefined ? (

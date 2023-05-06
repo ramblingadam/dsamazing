@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 //// Components
 import Node from './_structures/Node'
 import DSAction from './DSAction'
+import EventLog from './EventLog'
 
 //// --- STRUCTURES ---
 //// LINKED LIST
@@ -67,29 +68,52 @@ const DataStructure = () => {
   const [nodeCounter, setNodeCounter] = useState<number>(0)
   const newNodeRef = useRef(0)
 
+  const [eventLogArr, setEventLogArr] = useState<string[]>([
+    `Let's get started!`,
+  ])
+
+  //// This updates a node counter which we use in combination with a node value's index to ensure unique keys are assigned to every node rendered from the LinkedListArray. This ensure React renders new and updated values properly.
   const updateCounter = () => {
     setNodeCounter(nodeCounter + 1)
   }
 
+  //// Updates the text in the event log.
+  const updateEventLog = (addText: string) => {
+    const newEventLogArr = [...eventLogArr, '• ' + addText]
+    // console.log(newEventLogArr)
+    setEventLogArr(newEventLogArr)
+  }
+
+  //! -- LINKED LIST OPS --
+  //// Adds a node to the end of our linked list.
   const appendList = (n: any) => {
-    console.log('appending...')
     newNodeRef.current = linkedListArray.length
     console.log(newNodeRef.current)
     setLinkedList(linkedList.append(n))
     setLinkedListArray(linkedList.toArray())
     updateCounter()
+    updateEventLog(
+      `Created new Linked List Node:\n \t{value: ${n}, next: null}`
+    )
   }
+
+  //// Adds a node to the start of our linkedlist.
   const prependList = (n: any) => {
-    console.log('PREpending...')
     newNodeRef.current = 0
+    const next = `${linkedList.head?.value}`
     console.log(newNodeRef.current)
     setLinkedList(linkedList.prepend(n))
     setLinkedListArray(linkedList.toArray())
     updateCounter()
+    updateEventLog(
+      `Created new Linked List Node:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
+    )
   }
+  //! -- END LINKED LIST OPS ---
 
+  //! JSX
   return (
-    <div>
+    <div className='ds-view-wrapper flex flex-col'>
       <section className='ds-window-wrapper flex flex-wrap justify-center mx-4'>
         {linkedListArray.length === 0 ? (
           <Node
@@ -139,6 +163,9 @@ const DataStructure = () => {
           iconClass='fa-solid fa-subtract'
           action={() => 1}
         />
+      </section>
+      <section className='ds-eventlog-wrapper mt-auto'>
+        <EventLog eventLogArr={eventLogArr} />
       </section>
     </div>
   )
