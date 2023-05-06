@@ -120,7 +120,7 @@ const DataStructure = () => {
           ))
         )}
       </section>
-      <section className='ds-interface-wrapper flex justify-center'>
+      <section className='ds-interface-wrapper flex flex-wrap justify-center'>
         <DSAction
           title='Append'
           inputType='number'

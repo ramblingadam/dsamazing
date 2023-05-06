@@ -16,12 +16,25 @@ module.exports = {
         highlight: colors.yellow,
       },
       animation: {
-        appear: 'grow-in 1s ease forwards',
+        'grow-in': 'grow-in 1s ease both',
+        'grow-in-delay': 'grow-in 1s ease 1s both',
+        'slide-right': 'slide-right 1s ease .5s both',
+        'grow-in-slide-right':
+          'appear 0s .5s both, grow-in 1s ease .5s both, slide-right .5s ease .75s both',
       },
       keyframes: {
         'grow-in': {
           '0%': { transform: 'scale(0)' },
           '100%': { transform: 'scale(1)' },
+        },
+        appear: {
+          '0%': { visibility: 'hidden' },
+          '99%': { visibility: 'hidden' },
+          '100%': { visibility: 'visible' },
+        },
+        'slide-right': {
+          '0%': { transform: 'translate(-55px)' },
+          '100%': { transform: 'translate(0px)' },
         },
       },
       boxShadow: {
