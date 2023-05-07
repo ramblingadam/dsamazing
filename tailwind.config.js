@@ -21,6 +21,7 @@ module.exports = {
         'slide-right': 'slide-right 1s ease .5s both',
         'grow-in-slide-right':
           'appear 0s .5s both, grow-in 1s ease .5s both, slide-right .5s ease .75s both',
+        'shrink-out': 'shrink-out 1s linear both',
       },
       keyframes: {
         'grow-in': {
@@ -35,6 +36,10 @@ module.exports = {
         'slide-right': {
           '0%': { transform: 'translate(-55px)' },
           '100%': { transform: 'translate(0px)' },
+        },
+        'shrink-out': {
+          '0%': { transform: 'scale(1)' },
+          '100%': { transform: 'scale(0) rotate(720deg)' },
         },
       },
       boxShadow: {
@@ -63,6 +68,25 @@ module.exports = {
         '.svg-outline': {
           filter:
             'drop-shadow(0 0 1px black), 0 0 2px black, 0 0 3px black, -1px 1px 2px black, -1px 1px 3px black',
+        },
+        '.scrollbar::-webkit-scrollbar': {
+          width: '8px',
+          height: '8px',
+        },
+
+        '.scrollbar::-webkit-scrollbar-track': {
+          'border-radius': '100vh',
+          background: '#134e4a',
+        },
+
+        '.scrollbar::-webkit-scrollbar-thumb': {
+          background: '#5eead4',
+          'border-radius': '100vh',
+          // border: '3px solid #f6f7ed',
+        },
+        '.scrollbar::-webkit-scrollbar-thumb:hover': {
+          background: '#c0a0b9;',
+          cursor: 'pointer',
         },
       })
     }),

@@ -48,6 +48,49 @@ class LL {
     }
     return this
   }
+  remove(value: number) {
+    console.log(`Searching for ${value}...`)
+    if (!this.head) return false
+    let index = 0
+    let current: LLNode | null = this.head
+    let prev: LLNode | null = null
+    let next: LLNode | null = current.next
+    while (current) {
+      console.log(current)
+      //// If we found the value,
+      if (current.value === value) {
+        //// Check if we're still at the head. If so,
+        if (current === this.head) {
+          //// Check if there is a next node. If so, set the new head to that node, and we're done.
+          if (current.next) {
+            this.head = this.head.next
+            //// If there is not a secondndoe in the list, empty the list by setting the list's head to null.
+          } else {
+            this.head = null
+          }
+          //// If we are NOT at the head, confirm that prev is an LLNode andnot null(it should be if we made it this far).
+        } else if (prev instanceof LLNode) {
+          //// If there is another node ahead of this one, remove our current node by setting the previous node's next value to the following node.
+          if (current.next) {
+            prev.next = next
+            //// If there is NOT another node ahead, set the previous node's next value to null.
+          } else {
+            prev.next = null
+          }
+        }
+        //// Yay, we removed a node! Decrease the length property of our list by one, and return the index of the item we removed. We'll use this value to apply the disappearing animation to the node we removed.
+        this.length--
+        return index
+        //// If we did NOT find the value, step forward through the list.
+      } else {
+        prev = current
+        current = current.next
+        next = current?.next ? current.next : null
+        index++
+      }
+    }
+    return false
+  }
 
   toArray() {
     if (this.head === null) return []
@@ -67,6 +110,7 @@ const DataStructure = () => {
   const [linkedListArray, setLinkedListArray] = useState<number[]>([])
   const [nodeCounter, setNodeCounter] = useState<number>(0)
   const newNodeRef = useRef(0)
+  const [nodeToRemove, setNodeToRemove] = useState<number>(-1)
 
   const [eventLogArr, setEventLogArr] = useState<string[]>([
     `Let's get started!`,
@@ -79,7 +123,11 @@ const DataStructure = () => {
 
   //// Updates the text in the event log.
   const updateEventLog = (addText: string) => {
-    const newEventLogArr = [...eventLogArr, '• ' + addText]
+    const newTextSplit = addText.split('\n')
+    // console.log(newTextSplit)
+    newTextSplit[0] = '• ' + newTextSplit[0]
+    // const newEventLogArr = [...eventLogArr, '• ' + addText]
+    const newEventLogArr = [...eventLogArr, ...newTextSplit]
     // console.log(newEventLogArr)
     setEventLogArr(newEventLogArr)
   }
@@ -88,7 +136,7 @@ const DataStructure = () => {
   //// Adds a node to the end of our linked list.
   const appendList = (n: any) => {
     newNodeRef.current = linkedListArray.length
-    console.log(newNodeRef.current)
+    // console.log(newNodeRef.current)
     setLinkedList(linkedList.append(n))
     setLinkedListArray(linkedList.toArray())
     updateCounter()
@@ -109,11 +157,31 @@ const DataStructure = () => {
       `Created new Linked List Node:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
     )
   }
+
+  const remove = (n: any) => {
+    newNodeRef.current = -1
+    //// linkedList.remove() returns false if the value is not found, or the index of the removed item if found.
+    const result = linkedList.remove(n)
+    if (result === false) {
+      updateEventLog(`Value ${n} not found in Linked List.`)
+    } else {
+      console.log(`Value found, at index ${result}`)
+      setNodeToRemove(result)
+      const removeAnimationTimeout = setTimeout(() => {
+        setNodeToRemove(-1)
+        setLinkedListArray(linkedList.toArray())
+        clearTimeout(removeAnimationTimeout)
+      }, 1000)
+      updateCounter()
+      updateEventLog(`First instance of value ${n} removed.`)
+    }
+  }
+
   //! -- END LINKED LIST OPS ---
 
   //! JSX
   return (
-    <div className='ds-view-wrapper flex flex-col'>
+    <div className='ds-view-wrapper flex flex-col flex-1 h-full'>
       <section className='ds-window-wrapper flex flex-wrap justify-center mx-4'>
         {linkedListArray.length === 0 ? (
           <Node
@@ -121,6 +189,7 @@ const DataStructure = () => {
             id={'0'}
             value={undefined}
             newNode={true}
+            remove={false}
           />
         ) : (
           linkedListArray.map((value, i) => (
@@ -130,14 +199,16 @@ const DataStructure = () => {
                 id={i.toString()}
                 value={value}
                 newNode={i === newNodeRef.current}
+                remove={i === nodeToRemove}
               />
 
               {i === linkedListArray.length - 1 && (
                 <Node
-                  key={`${nodeCounter}-${i + 1}`}
+                  key={`${nodeCounter}-${i}-null`}
                   id={`${i + 1}`}
                   value={null}
                   newNode={i === newNodeRef.current}
+                  remove={i === nodeToRemove}
                 />
               )}
             </>
@@ -146,7 +217,7 @@ const DataStructure = () => {
       </section>
       <section className='ds-interface-wrapper flex flex-wrap justify-center'>
         <DSAction
-          title='Append'
+          title='.append()'
           inputType='number'
           iconClass='fa-solid fa-add'
           action={appendList}
@@ -161,7 +232,7 @@ const DataStructure = () => {
           title='Remove'
           inputType='number'
           iconClass='fa-solid fa-subtract'
-          action={() => 1}
+          action={remove}
         />
       </section>
       <section className='ds-eventlog-wrapper mt-auto'>

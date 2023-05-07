@@ -3,14 +3,10 @@ import DataStructure from './DataStructure'
 import { useState, MouseEvent, useContext } from 'react'
 import { CurrentDSContext } from '@/contexts/CurrentDS'
 
-
 //// COMPONENT
 const Main = () => {
-  const {structure} = useContext(CurrentDSContext)
-  
-  
+  const { structure } = useContext(CurrentDSContext)
 
-  
   const dataStructures = [
     'Linked List',
     'Tree',
@@ -19,26 +15,25 @@ const Main = () => {
     'Hash Map',
   ]
 
-  const handleMainMenuItemClick = (e:MouseEvent) => {
+  const handleMainMenuItemClick = (e: MouseEvent) => {
     // console.log(e.target)
     // setCurrentDS(e.target)
   }
 
   return (
-    <main className='w-full max-w-3xl mx-auto'>
+    <main className='flex flex-col flex-1 w-full h-full max-w-3xl mx-auto'>
       {!structure ? (
-      <ul onClick={handleMainMenuItemClick}>
-        {dataStructures.map((dataStructure, i) => (
-          <MainMenuItem
-            key={i}
-            item={dataStructure}
-          />
-        ))}
-      </ul>
+        <ul onClick={handleMainMenuItemClick}>
+          {dataStructures.map((dataStructure, i) => (
+            <MainMenuItem
+              key={i}
+              item={dataStructure}
+            />
+          ))}
+        </ul>
       ) : (
         <DataStructure />
       )}
-
     </main>
   )
 }
