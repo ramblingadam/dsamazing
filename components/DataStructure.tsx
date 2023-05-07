@@ -49,7 +49,7 @@ class LL {
     return this
   }
   remove(value: number) {
-    console.log(`Searching for ${value}...`)
+    // console.log(`Searching for ${value}...`)
     if (!this.head) return false
     let index = 0
     let current: LLNode | null = this.head
@@ -165,7 +165,7 @@ const DataStructure = () => {
     if (result === false) {
       updateEventLog(`Value ${n} not found in Linked List.`)
     } else {
-      console.log(`Value found, at index ${result}`)
+      // console.log(`Value found, at index ${result}`)
       setNodeToRemove(result)
       const removeAnimationTimeout = setTimeout(() => {
         setNodeToRemove(-1)
@@ -217,19 +217,19 @@ const DataStructure = () => {
       </section>
       <section className='ds-interface-wrapper flex flex-wrap justify-center'>
         <DSAction
-          title='.append()'
+          title='append'
           inputType='number'
           iconClass='fa-solid fa-add'
           action={appendList}
         />
         <DSAction
-          title='Prepend'
+          title='prepend'
           inputType='number'
           iconClass='fa-solid fa-add'
           action={prependList}
         />
         <DSAction
-          title='Remove'
+          title='remove'
           inputType='number'
           iconClass='fa-solid fa-subtract'
           action={remove}

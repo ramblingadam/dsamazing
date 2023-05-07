@@ -24,7 +24,7 @@ const DSAction = ({ title, inputType, iconClass, action }: DSActionTypes) => {
 
   return (
     <div className='dsaction-wrapper flex-col m-4'>
-      <div className='dsaction-title border-x-2 flex justify-center p-1 font-bold text-teal-300 bg-teal-800 border-t-2 border-black rounded-t-lg'>
+      <div className='dsaction-title border-x-2 text-outline flex justify-center p-1 font-bold text-teal-300 bg-teal-800 border-t-2 border-black rounded-t-lg'>
         {title}
       </div>
       <form
