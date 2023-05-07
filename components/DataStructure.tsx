@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { gsap } from 'gsap'
 //// Components
 import Node from './_structures/Node'
 import DSAction from './DSAction'
@@ -94,20 +95,31 @@ class LL {
 
   toArray() {
     if (this.head === null) return []
-    const result = []
+    const result: LLNodeArrValue[] = []
     let current: LLNode | null = this.head
+    let index: number = 0
     while (current) {
-      result.push(current.value)
+      const newLLNodeArrValue = {
+        value: current.value,
+        order: index,
+      }
+      result.push(newLLNodeArrValue)
       current = current.next
     }
     return result
   }
 }
 
+interface LLNodeArrValue {
+  value: string | number
+  // next: string
+  order: number
+}
+
 //// COMPONENT
 const DataStructure = () => {
   const [linkedList, setLinkedList] = useState<LL>(new LL(null))
-  const [linkedListArray, setLinkedListArray] = useState<number[]>([])
+  const [linkedListArray, setLinkedListArray] = useState<LLNodeArrValue[]>([])
   const [nodeCounter, setNodeCounter] = useState<number>(0)
   const newNodeRef = useRef(0)
   const [nodeToRemove, setNodeToRemove] = useState<number>(-1)
@@ -158,6 +170,7 @@ const DataStructure = () => {
     )
   }
 
+  //// Removes the first node found with the given value.
   const remove = (n: any) => {
     newNodeRef.current = -1
     //// linkedList.remove() returns false if the value is not found, or the index of the removed item if found.
@@ -177,12 +190,69 @@ const DataStructure = () => {
     }
   }
 
+  // TODO test order animation
+
+  const reorder = () => {
+    const reordered = [...linkedListArray]
+    // reordered[0].order = reordered.length - 1
+    reordered[0].order = 13
+    setLinkedListArray(reordered)
+  }
+  // TODO GSAP crazy shit... uh... beyond my reach atm
+  // useEffect(() => {
+  //   var group = document.querySelector('.ds-window-wrapper')
+  //   var nodes = document.querySelectorAll('.node-wrapper')
+  //   var total = nodes.length
+  //   var ease = 'power1.inOut'
+  //   var boxes: any = []
+
+  //   for (var i = 0; i < total; i++) {
+  //     var node = nodes[i]
+
+  //     // Initialize transforms on node
+  //     gsap.set(node, { x: 0 })
+
+  //     boxes[i] = {
+  //       x: node.offsetLeft,
+  //       y: node.offsetTop,
+  //       node,
+  //     }
+  //   }
+
+  //   group.addEventListener('mouseenter', layout)
+  //   group.addEventListener('mouseleave', layout)
+
+  //   function layout() {
+  //     group.classList.toggle('reorder')
+
+  //     for (var i = 0; i < total; i++) {
+  //       var box = boxes[i]
+
+  //       var lastX = box.x
+  //       var lastY = box.y
+
+  //       box.x = box.node.offsetLeft
+  //       box.y = box.node.offsetTop
+
+  //       // Continue if box hasn't moved
+  //       if (lastX === box.x && lastY === box.y) continue
+
+  //       // Reversed delta values taking into account current transforms
+  //       var x = gsap.getProperty(box.node, 'x') + lastX - box.x
+  //       var y = gsap.getProperty(box.node, 'y') + lastY - box.y
+
+  //       // Tween to 0 to remove the transforms
+  //       gsap.fromTo(box.node, { x, y }, { duration: 0.5, x: 0, y: 0, ease })
+  //     }
+  //   }
+  // }, [linkedListArray])
+
   //! -- END LINKED LIST OPS ---
 
   //! JSX
   return (
     <div className='ds-view-wrapper flex flex-col flex-1 h-full'>
-      <section className='ds-window-wrapper flex flex-wrap justify-center mx-4'>
+      <section className='ds-window-wrapper flex flex-row flex-wrap justify-center mx-4'>
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
@@ -190,16 +260,18 @@ const DataStructure = () => {
             value={undefined}
             newNode={true}
             remove={false}
+            order={0}
           />
         ) : (
-          linkedListArray.map((value, i) => (
+          linkedListArray.map((node, i) => (
             <>
               <Node
                 key={`${nodeCounter}-${i}`}
                 id={i.toString()}
-                value={value}
+                value={node.value}
                 newNode={i === newNodeRef.current}
                 remove={i === nodeToRemove}
+                order={node.order}
               />
 
               {i === linkedListArray.length - 1 && (
@@ -209,6 +281,7 @@ const DataStructure = () => {
                   value={null}
                   newNode={i === newNodeRef.current}
                   remove={i === nodeToRemove}
+                  order={node.order + 1}
                 />
               )}
             </>
@@ -234,6 +307,12 @@ const DataStructure = () => {
           iconClass='fa-solid fa-subtract'
           action={remove}
         />
+        {/* <DSAction
+          title='reorder'
+          inputType='number'
+          iconClass='fa-solid fa-subtract'
+          action={reorder}
+        /> */}
       </section>
       <section className='ds-eventlog-wrapper mt-auto'>
         <EventLog eventLogArr={eventLogArr} />

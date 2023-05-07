@@ -2,12 +2,23 @@
 const plugin = require('tailwindcss/plugin')
 const colors = require('tailwindcss/colors')
 
+const whitelistOrders = (max) => {
+  const result = []
+  for (let i = 0; i <= max; i++) {
+    if (i <= 12) result.push(`order-${i}`)
+    else result.push(`order-[${i}]`)
+  }
+  return result
+}
+const whitelistedOrders = whitelistOrders(50)
+
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  safelist: [...whitelistedOrders],
   theme: {
     extend: {
       colors: {
@@ -42,6 +53,9 @@ module.exports = {
           '100%': { transform: 'scale(0) rotate(720deg)' },
         },
       },
+      transitionOrder: {
+        '1s': '1s ease forwards',
+      },
       boxShadow: {
         inner3d:
           'inset 2px 2px 5px rgba(255, 255, 255, 0.5), inset -2px -2px 5px rgba(0, 0, 0, 0.5)',
@@ -73,7 +87,9 @@ module.exports = {
           width: '8px',
           height: '8px',
         },
-
+        '.transition-order-1s': {
+          transition: 'order 1s ease forwards',
+        },
         '.scrollbar::-webkit-scrollbar-track': {
           'border-radius': '100vh',
           background: '#134e4a',

@@ -6,14 +6,20 @@ type NodeProps = {
   id: string
   newNode: boolean
   remove: boolean
+  order: number
 }
 
 //// COMPONENT
-const Node = ({ value, id, newNode, remove }: NodeProps) => {
+const Node = ({ value, id, newNode, remove, order }: NodeProps) => {
   // console.log('remove!?!?!?')
   // console.log(value, id, newNode, remove)
+  const orderClass = order <= 12 ? `order-${order} ` : `order-[${order}] `
   return (
-    <div className='flex mt-4'>
+    <div
+      className={`${orderClass}${
+        order > 2 ? 'bg-black ' : ''
+      }node-wrapper flex mt-4 transition-order-1s`}
+    >
       {value === undefined ? (
         <div
           className={`${
