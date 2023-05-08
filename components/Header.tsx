@@ -63,7 +63,7 @@ const Header = () => {
         {structure !== null && (
           <div
             onClick={closeStructure}
-            className='hover:cursor-pointer hover:bg-teal-100 absolute top-0 right-0 flex items-center justify-center w-8 h-8 ml-auto font-bold text-white text-teal-900 transition bg-teal-300 border-2 border-teal-900 rounded-full'
+            className='hover:cursor-pointer hover:bg-highlight-300 text-primary-100 bg-secondary-300 absolute top-0 right-0 flex items-center justify-center w-8 h-8 ml-auto font-bold transition border-2 border-teal-900 rounded-full'
           >
             <i className='material-icons-round'>close</i>
           </div>

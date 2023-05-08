@@ -24,7 +24,8 @@ const DSAction = ({
     useState<string>('w-0 p-0')
   const [input2WidthPadding, setinput2WidthPadding] =
     useState<string>('w-0 p-0')
-  const focusInputRef = useRef<HTMLInputElement>(null)
+  const focusInput1Ref = useRef<HTMLInputElement>(null)
+  const focusInput2Ref = useRef<HTMLInputElement>(null)
 
   const handleInput1Change = (e: ChangeEvent<HTMLInputElement>) => {
     setInput1Value(e.target.value)
@@ -39,7 +40,7 @@ const DSAction = ({
   //// If unselected, then we reset the widths od our inputs so they can slideway.
   useEffect(() => {
     if (selected) {
-      focusInputRef.current?.focus()
+      focusInput1Ref.current?.focus()
       if (input1Type && input2Type) {
         setTitleWidth('w-1/3 ')
         setinput1WidthPadding('w-1/3 p-1 ')
@@ -82,15 +83,20 @@ const DSAction = ({
         (input1Type && input1Value === '') ||
         (input2Type && input2Value === '')
       ) {
-        const emptyInputs = Array.from(document.querySelectorAll('input'))
-        emptyInputs
-          .filter((input) => input.value === '')
-          .forEach((emptyInput) => {
-            emptyInput.classList.add('bg-red-500')
-            setTimeout(() => {
-              emptyInput.classList.remove('bg-red-500')
-            }, 1000)
-          })
+        const emptyInputs = [
+          focusInput1Ref.current as HTMLInputElement,
+          focusInput2Ref.current as HTMLInputElement,
+        ].filter((input) => input.value === '')
+        emptyInputs.forEach((emptyInput) => {
+          emptyInput.classList.add('bg-red-500')
+
+          setTimeout(() => {
+            emptyInput.classList.remove('bg-red-500')
+          }, 1000)
+        })
+        emptyInputs[0].focus()
+        console.log(emptyInputs)
+
         return
       }
 
@@ -138,7 +144,7 @@ const DSAction = ({
         </>
       )} */}
       <input
-        ref={focusInputRef}
+        ref={focusInput1Ref}
         className={`${input1WidthPadding} rounded-lg transition-all duration-500`}
         type={input1Type !== null ? input1Type : undefined}
         value={input1Value}
@@ -147,6 +153,7 @@ const DSAction = ({
         tabIndex={selected ? undefined : -1}
       ></input>
       <input
+        ref={focusInput2Ref}
         className={`${input2WidthPadding} rounded-lg transition-all duration-500`}
         type={input2Type !== null ? input2Type : undefined}
         value={input2Value}
