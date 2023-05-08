@@ -318,7 +318,7 @@ const LinkedList = () => {
 
   //! JSX
   return (
-    <div className='ds-window-wrapper flex flex-col flex-1 h-full'>
+    <div className='ds-window-wrapper flex flex-col flex-1 w-full h-full'>
       <section className='ds-view-wrapper flex flex-row flex-wrap justify-center mx-4'>
         {linkedListArray.length === 0 ? (
           <Node

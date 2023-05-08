@@ -24,7 +24,7 @@ const DSMain = () => {
       {/* //// DS DETAILS SIDEBAR (wide screen only)- Shows text representing current data strucutre, or current node if node selected */}
       <section className='ds-details-wrapper w-full max-w-xs'></section>
       {/* //// MAIN CENTRAL DISPLAY */}
-      <section className='ds-central-wrapper flex flex-col flex-1 h-full max-w-3xl mx-auto'>
+      <section className='ds-central-wrapper flex flex-col flex-1 w-full h-full max-w-3xl mx-auto'>
         {structure === 'Linked List' && <LinkedList />}
 
         <section className='ds-eventlog-wrapper'></section>

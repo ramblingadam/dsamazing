@@ -1,7 +1,4 @@
 import MainMenuItem from './MainMenuItem'
-import DataStructure from './DataStructure'
-import { useState, MouseEvent, useContext } from 'react'
-import { CurrentDSContext } from '@/contexts/CurrentDS'
 
 //// COMPONENT
 const MainMenu = () => {

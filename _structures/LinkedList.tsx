@@ -5,7 +5,7 @@ interface LLNodeArrValue {
   order: number
 }
 
-//// --- DS ----
+//// --- DATA STRUCTURE ----
 //// Node
 class LLNode {
   value: number
@@ -109,5 +109,7 @@ class LL {
     return result
   }
 }
+
+//// --- ACTIONS ---
 
 export default { structure: LL, node: LLNode }
