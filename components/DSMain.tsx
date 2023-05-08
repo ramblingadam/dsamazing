@@ -52,12 +52,12 @@ const DSMain = () => {
         HEY YOU
       </section>
       {/* //// MAIN CENTRAL DISPLAY */}
-      <section className='ds-central-wrapper md:lg:mx-0 md:lg:max-w-none flex flex-col flex-1 w-full max-w-screen-lg max-h-screen'>
+      <section className='ds-central-wrapper md:lg:mx-0 md:lg:max-w-none ds-window-max-h flex flex-col flex-1 w-full max-w-screen-lg'>
         {structure === 'Linked List' && <LinkedList />}
 
-        <section className='ds-eventlog-wrapper h-40'>
+        {/* <div className='ds-eventlog-wrapper h-40'>
           <EventLog eventLogTextArr={eventLogTextArr} />
-        </section>
+        </div> */}
       </section>
       {/* //// EVENT LOG SIDEBAR (wide screen only) */}
       {/* <section className='ds-eventlog-wrapper w-40'></section> */}

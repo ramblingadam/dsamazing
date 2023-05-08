@@ -6,6 +6,8 @@ import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Main from '@/components/Main'
+import MainMenu from '@/components/MainMenu'
+import DSMain from '@/components/DSMain'
 
 export default function Home() {
   const [currentStructure, setCurrentStructure] = useState<string>('')
@@ -28,7 +30,8 @@ export default function Home() {
           }}
         >
           <Header />
-          <Main />
+          {!currentStructure ? <MainMenu /> : <DSMain />}
+          {/* <Main /> */}
           {/* <Footer /> */}
         </EventLogTextContext.Provider>
       </CurrentDSContext.Provider>

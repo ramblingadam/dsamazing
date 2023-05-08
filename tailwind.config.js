@@ -126,6 +126,9 @@ module.exports = {
         '.small-caps': {
           'font-variant': 'small-caps',
         },
+        '.ds-window-max-h': {
+          'max-height': 'calc(100vh - 70px)',
+        },
       })
     }),
   ],

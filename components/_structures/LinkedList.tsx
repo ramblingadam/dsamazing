@@ -321,8 +321,8 @@ const LinkedList = () => {
 
   //! JSX
   return (
-    <div className='ds-window-wrapper flex flex-col flex-1 w-full h-full'>
-      <section className='ds-view-wrapper scrollbar scroll-smooth flex flex-row flex-wrap items-start content-start justify-center flex-1 mx-4 overflow-y-scroll'>
+    <div className='ds-window-wrapper flex flex-col flex-1 h-full'>
+      <section className='ds-view-wrapper scrollbar scroll-smooth flex flex-row flex-wrap items-start content-start justify-center flex-1 mx-4 overflow-y-auto'>
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
@@ -359,9 +359,9 @@ const LinkedList = () => {
         )}
       </section>
       <DSActions actions={actions} />
-      {/* <section className='ds-eventlog-wrapper'>
+      <section className='ds-eventlog-wrapper md:lg:hidden h-40'>
         <EventLog eventLogTextArr={eventLogTextArr} />
-      </section> */}
+      </section>
     </div>
   )
 }
