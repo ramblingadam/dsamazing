@@ -30,6 +30,7 @@ const DSAction = ({
     setInput1Value(e.target.value)
   }
   const handleInput2Change = (e: ChangeEvent<HTMLInputElement>) => {
+    if (typeof e.target.value !== 'number') return
     setInput2Value(+e.target.value)
   }
 
@@ -59,14 +60,11 @@ const DSAction = ({
 
   //// This function serves to prevent the default form behavior of refreshing before running the actual action, while allowing the user to press "enter" within the input field to trigger the action.
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log('HANDLESUBMIT?')
     e.preventDefault()
-
     handleDSActionClick(null)
   }
   //// Runs the action.
   const handleDSActionClick = (e: MouseEvent<HTMLFormElement> | null) => {
-    console.log('DSACTIONCLICK!?')
     //// If current DSaction is not selected, select it and return.
     if (!selected) {
       onSelect()
