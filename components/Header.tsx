@@ -47,7 +47,6 @@ const Header = () => {
             <span className='text-outline text-teal-300'>mazing</span>
           </div>
 
-          {/* {structure !== null && ( */}
           <div
             className={`${
               structure ? 'animate-slide-right-far ' : 'animate-slide-left-far '
@@ -58,9 +57,8 @@ const Header = () => {
               {headerStructure}
             </span>
           </div>
-          {/* )} */}
         </h1>
-        {structure !== null && (
+        {structure !== '' && (
           <div
             onClick={closeStructure}
             className='hover:cursor-pointer hover:bg-highlight-300 text-primary-100 bg-secondary-300 absolute top-0 right-0 flex items-center justify-center w-8 h-8 ml-auto font-bold transition border-2 border-teal-900 rounded-full'
