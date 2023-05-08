@@ -10,6 +10,7 @@ const Main = () => {
   return (
     <main className='flex flex-col flex-1 w-full h-full'>
       {!structure ? <MainMenu /> : <DSMain />}
+      {/* <div className='bg-primary-800'>hi</div> */}
     </main>
   )
 }
