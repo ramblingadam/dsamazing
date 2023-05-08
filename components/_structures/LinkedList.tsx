@@ -1,9 +1,10 @@
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import { gsap } from 'gsap'
 //// Components
 import Node from './Node'
 import EventLog from '../EventLog'
 import DSActions from '../DSActions/DSActions'
+import { EventLogTextContext } from '@/contexts/EventLogText'
 
 //// --- STRUCTURES ---
 //// LINKED LIST
@@ -124,9 +125,11 @@ const LinkedList = () => {
   const newNodeRef = useRef(0)
   const [nodeToRemove, setNodeToRemove] = useState<number>(-1)
 
-  const [eventLogArr, setEventLogArr] = useState<string[]>([
-    `Let's get started!`,
-  ])
+  // const [eventLogArr, setEventLogArr] = useState<string[]>([
+  //   `Let's get started!`,
+  // ])
+  const { eventLogTextArr, setEventLogTextArr } =
+    useContext(EventLogTextContext)
 
   //// This updates a node counter which we use in combination with a node value's index to ensure unique keys are assigned to every node rendered from the LinkedListArray. This ensure React renders new and updated values properly.
   const updateCounter = () => {
@@ -139,9 +142,9 @@ const LinkedList = () => {
     // console.log(newTextSplit)
     newTextSplit[0] = '• ' + newTextSplit[0]
     // const newEventLogArr = [...eventLogArr, '• ' + addText]
-    const newEventLogArr = [...eventLogArr, ...newTextSplit]
+    const newEventLogArr = [...eventLogTextArr, ...newTextSplit]
     // console.log(newEventLogArr)
-    setEventLogArr(newEventLogArr)
+    setEventLogTextArr(newEventLogArr)
   }
 
   //! -- LINKED LIST OPS --
@@ -319,7 +322,7 @@ const LinkedList = () => {
   //! JSX
   return (
     <div className='ds-window-wrapper flex flex-col flex-1 w-full h-full'>
-      <section className='ds-view-wrapper flex flex-row flex-wrap justify-center mx-4'>
+      <section className='ds-view-wrapper scrollbar scroll-smooth flex flex-row flex-wrap items-start content-start justify-center flex-1 mx-4 overflow-y-scroll'>
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
@@ -356,9 +359,9 @@ const LinkedList = () => {
         )}
       </section>
       <DSActions actions={actions} />
-      <section className='ds-eventlog-wrapper'>
-        <EventLog eventLogArr={eventLogArr} />
-      </section>
+      {/* <section className='ds-eventlog-wrapper'>
+        <EventLog eventLogTextArr={eventLogTextArr} />
+      </section> */}
     </div>
   )
 }

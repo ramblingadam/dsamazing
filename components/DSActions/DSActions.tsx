@@ -15,7 +15,7 @@ const DSActions = ({ actions }: DSActionsPropTypes) => {
   }
 
   return (
-    <section className='ds-actions-wrapper flex flex-row flex-wrap w-full mt-auto'>
+    <section className='ds-actions-wrapper flex flex-row flex-wrap w-full'>
       {actions.map((action, i) => (
         <DSAction
           key={`${i}-${action.title.length}`}

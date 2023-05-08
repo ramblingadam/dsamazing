@@ -123,6 +123,9 @@ module.exports = {
           background: '#c0a0b9;',
           cursor: 'pointer',
         },
+        '.small-caps': {
+          'font-variant': 'small-caps',
+        },
       })
     }),
   ],

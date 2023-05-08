@@ -1,11 +1,11 @@
-import { createContext, Dispatch, SetStateAction } from "react";
+import { createContext, Dispatch, SetStateAction } from 'react'
 
 interface CurrentDSContextType {
-  structure: string | null;
-  setStructure: Dispatch<SetStateAction<string | null>>
+  structure: string
+  setStructure: Dispatch<SetStateAction<string>>
 }
 
 export const CurrentDSContext = createContext<CurrentDSContextType>({
-  structure: null,
-  setStructure: () => {}
-});
+  structure: '',
+  setStructure: () => {},
+})

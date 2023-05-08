@@ -2,10 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import Typewriter from './TypeWriter'
 
 type EventLogProps = {
-  eventLogArr: string[]
+  eventLogTextArr: string[]
 }
 
-const EventLog = ({ eventLogArr }: EventLogProps) => {
+const EventLog = ({ eventLogTextArr }: EventLogProps) => {
   const eventLog = useRef<HTMLDivElement>(null)
   const [currentLineIndex, setCurrentLineIndex] = useState(1)
   const [currentlyTyping, setCurrentlyTyping] = useState<boolean>(false)
@@ -37,11 +37,11 @@ const EventLog = ({ eventLogArr }: EventLogProps) => {
 
   useEffect(() => {
     let lineTimeout: NodeJS.Timeout | null = null
-    if (currentLineIndex < eventLogArr.length) {
+    if (currentLineIndex < eventLogTextArr.length) {
       setCurrentlyTyping(true)
       lineTimeout = setTimeout(() => {
         setCurrentLineIndex((prevIndex) => prevIndex + 1)
-      }, eventLogArr[currentLineIndex].length * 10) // Adjust the delay between lines as desired
+      }, eventLogTextArr[currentLineIndex].length * 10) //// Delay between each line is dependent on the number of characters in the previous line
     } else {
       setCurrentlyTyping(false)
     }
@@ -49,15 +49,14 @@ const EventLog = ({ eventLogArr }: EventLogProps) => {
     return () => {
       if (lineTimeout) clearTimeout(lineTimeout)
     }
-  }, [currentLineIndex, eventLogArr])
+  }, [currentLineIndex, eventLogTextArr])
 
   return (
     <div
-      className='text-primary-200 h-36 scrollbar scroll-smooth p-4 overflow-y-scroll font-mono bg-gray-900'
-      id='event-log'
+      className='text-primary-200 scrollbar scroll-smooth w-full h-full p-4 overflow-y-scroll font-mono bg-gray-900'
       ref={eventLog}
     >
-      {eventLogArr.slice(0, currentLineIndex).map((line, i) => {
+      {eventLogTextArr.slice(0, currentLineIndex).map((line, i) => {
         const indentedLine = line.replace(/\t/g, '  ')
         return (
           <Typewriter

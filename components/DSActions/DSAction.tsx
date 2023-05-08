@@ -30,7 +30,7 @@ const DSAction = ({
     setInput1Value(e.target.value)
   }
   const handleInput2Change = (e: ChangeEvent<HTMLInputElement>) => {
-    if (typeof e.target.value !== 'number') return
+    if (Number.isNaN(+e.target.value)) return
     setInput2Value(+e.target.value)
   }
 
@@ -82,13 +82,15 @@ const DSAction = ({
         (input1Type && input1Value === '') ||
         (input2Type && input2Value === '')
       ) {
-        const emptyInputs = document.querySelectorAll('input')
-        emptyInputs.forEach((emptyInput) => {
-          emptyInput.classList.add('bg-red-500')
-          setTimeout(() => {
-            emptyInput.classList.remove('bg-red-500')
-          }, 1000)
-        })
+        const emptyInputs = Array.from(document.querySelectorAll('input'))
+        emptyInputs
+          .filter((input) => input.value === '')
+          .forEach((emptyInput) => {
+            emptyInput.classList.add('bg-red-500')
+            setTimeout(() => {
+              emptyInput.classList.remove('bg-red-500')
+            }, 1000)
+          })
         return
       }
 
@@ -153,7 +155,7 @@ const DSAction = ({
         tabIndex={selected && input2Type ? undefined : -1}
       ></input>
       <div
-        className={`${titleWidth} ds-action-title text-primary-100 text-outline flex items-center justify-center transition-all duration-500`}
+        className={`${titleWidth} ds-action-title text-primary-100 text-outline flex items-center justify-center transition-all duration-500 uppercase font-bold`}
       >
         <i className={`${icon.class} pr-1`}>{icon.text}</i>
         {title}
