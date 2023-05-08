@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from 'react'
 import { gsap } from 'gsap'
 //// Components
-import Node from './_structures/Node'
-import EventLog from './EventLog'
-import DSActions from './DSActions/DSActions'
+import Node from './Node'
+import EventLog from '../EventLog'
+import DSActions from '../DSActions/DSActions'
 
 //// --- STRUCTURES ---
 //// LINKED LIST
@@ -117,7 +117,7 @@ interface LLNodeArrValue {
 }
 
 //// COMPONENT
-const DataStructure = () => {
+const LinkedList = () => {
   const [linkedList, setLinkedList] = useState<LL>(new LL(null))
   const [linkedListArray, setLinkedListArray] = useState<LLNodeArrValue[]>([])
   const [nodeCounter, setNodeCounter] = useState<number>(0)
@@ -156,7 +156,6 @@ const DataStructure = () => {
       `Created new Linked List Node:\n \t{value: ${n}, next: null}`
     )
   }
-
   //// Adds a node to the start of our linkedlist.
   const prependList = (n: any) => {
     newNodeRef.current = 0
@@ -169,7 +168,6 @@ const DataStructure = () => {
       `Created new Linked List Node:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
     )
   }
-
   //// Removes the first node found with the given value.
   const remove = (n: any) => {
     newNodeRef.current = -1
@@ -247,12 +245,81 @@ const DataStructure = () => {
   //   }
   // }, [linkedListArray])
 
+  const actions = [
+    {
+      //////////////////////////
+      //// APPEND LIST
+      //// Adds a node to the end of a Linked List.
+      //////////////////////////
+      title: 'append',
+      input1Type: 'text',
+      input2Type: null,
+      icon: { class: 'fa-solid fa-add', text: '' },
+      action: appendList,
+    },
+    {
+      //////////////////////////
+      //// PREPEND LIST
+      //// Adds a node to the start of a Linked List.
+      //////////////////////////
+      title: 'prepend',
+      input1Type: 'text',
+      input2Type: null,
+      icon: { class: 'fa-solid fa-add', text: '' },
+      action: prependList,
+    },
+    {
+      //////////////////////////
+      //// REMOVE VALUE FROM LIST
+      //// Adds a node to the start of a Linked List.
+      //////////////////////////
+      title: 'remove',
+      input1Type: 'text',
+      input2Type: null,
+      icon: { class: 'fa-solid fa-subtract', text: '' },
+      action: remove,
+    },
+    {
+      //////////////////////////
+      //// INSERT VALUE AT INDEX OF LIST
+      //// Adds a node at the desired index of a Linked List.
+      //////////////////////////
+      title: 'insert',
+      input1Type: 'text',
+      input2Type: 'text',
+      icon: { class: 'fa-solid fa-add', text: '' },
+      action: remove,
+    },
+    {
+      //////////////////////////
+      //// INSERT VALUE AT INDEX OF LIST
+      //// Adds a node at the desired index of a Linked List.
+      //////////////////////////
+      title: 'insert2',
+      input1Type: 'text',
+      input2Type: 'text',
+      icon: { class: 'fa-solid fa-add', text: '' },
+      action: remove,
+    },
+    {
+      //////////////////////////
+      //// INSERT VALUE AT INDEX OF LIST
+      //// Adds a node at the desired index of a Linked List.
+      //////////////////////////
+      title: 'insert3',
+      input1Type: 'text',
+      input2Type: 'text',
+      icon: { class: 'fa-solid fa-add', text: '' },
+      action: remove,
+    },
+  ]
+
   //! -- END LINKED LIST OPS ---
 
   //! JSX
   return (
-    <div className='ds-view-wrapper flex flex-col flex-1 h-full'>
-      <section className='ds-window-wrapper flex flex-row flex-wrap justify-center mx-4'>
+    <div className='ds-window-wrapper flex flex-col flex-1 h-full'>
+      <section className='ds-view-wrapper flex flex-row flex-wrap justify-center mx-4'>
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
@@ -288,12 +355,12 @@ const DataStructure = () => {
           ))
         )}
       </section>
-      <DSActions actions={} />
-      <section className='ds-eventlog-wrapper mt-auto'>
+      <DSActions actions={actions} />
+      <section className='ds-eventlog-wrapper'>
         <EventLog eventLogArr={eventLogArr} />
       </section>
     </div>
   )
 }
 
-export default DataStructure
+export default LinkedList

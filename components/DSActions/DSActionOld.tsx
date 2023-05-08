@@ -1,14 +1,13 @@
 import { ChangeEvent, FormEvent, useState } from 'react'
-
 //// PROPTYPES
-type DSActionTypes = {
-  title: string
-  inputType: string
-  iconClass: string
-  action: (n: string | number | undefined) => void
-}
+import DSActionPropTypes from '@/_types/DSActionPropTypes'
 
-const DSAction = ({ title, inputType, iconClass, action }: DSActionTypes) => {
+const DSAction = ({
+  title,
+  inputType,
+  iconClass,
+  action,
+}: DSActionPropTypes) => {
   const [inputValue, setInputValue] = useState<number | string>('')
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {

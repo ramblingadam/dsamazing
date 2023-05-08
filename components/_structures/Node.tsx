@@ -42,7 +42,7 @@ const Node = ({ value, id, newNode, remove, order }: NodeProps) => {
           <div
             className={`${newNode ? 'animate-grow-in scale-0 ' : ''}${
               remove ? 'animate-shrink-out ' : ''
-            }min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-primary-900 rounded-full shadow-inner3d hover:bg-primary-300 hover:cursor-pointer transition-colors font-mono relative group`}
+            }min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group`}
             id={`node-${id}`}
           >
             <span>{value}</span>
