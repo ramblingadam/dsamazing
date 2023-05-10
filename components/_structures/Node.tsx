@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState, useRef } from 'react'
 import HoverTooltip from '../HoverTooltip'
-import { SelectedItemInfoTextContext } from '@/contexts/SelectedItemInfoText'
+import { SelectedItemContext } from '@/contexts/SelectedItem'
 
 //// PROPTYPES
 type NodeProps = {
@@ -22,10 +22,23 @@ const Node = ({
   descriptionStringArr,
 }: NodeProps) => {
   const [selected, setSelected] = useState<Boolean>(false)
-  const { setSelectedItemInfoTextArr } = useContext(SelectedItemInfoTextContext)
+  const { selectedItem, setSelectedItem } = useContext(SelectedItemContext)
+  const node = useRef<null | HTMLDivElement>(null)
+
+  useEffect(() => {
+    console.log(selectedItem, node)
+    if (selectedItem?.id === node?.current?.id) {
+      console.log('we selectin')
+      setSelected(true)
+    } else {
+      setSelected(false)
+    }
+  }, [selectedItem])
+
   const handleNodeClick = () => {
-    setSelectedItemInfoTextArr(descriptionStringArr)
-    setSelected(true)
+    if (node.current !== null) {
+      setSelectedItem({ id: node.current.id, textArr: descriptionStringArr })
+    }
   }
 
   // console.log('remove!?!?!?')
@@ -42,8 +55,9 @@ const Node = ({
         <div
           className={`${
             newNode ? 'animate-grow-in ' : ''
-          }h-14 flex items-center justify-center p-4 text-xl font-bold text-black  rounded-lg`}
+          }node h-14 flex items-center justify-center p-4 text-xl font-bold text-black  rounded-lg`}
           id={`node-${id}`}
+          ref={node}
         >
           Structure is Empty!
         </div>
@@ -51,7 +65,8 @@ const Node = ({
         <div
           className={`${
             newNode ? 'animate-grow-in-delay scale-0 ' : ''
-          }w-14 h-14 flex items-center justify-center text-xl font-bold text-black rounded-full`}
+          }node w-14 h-14 flex items-center justify-center text-xl font-bold text-black rounded-full`}
+          ref={node}
         >
           null
         </div>
@@ -62,18 +77,19 @@ const Node = ({
               remove ? 'animate-shrink-out-spin ' : ''
             }${
               selected ? 'bg-highlight-300 ' : ''
-            }min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group`}
+            }node min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group`}
             id={`node-${id}`}
+            ref={node}
           >
-            <span>{value}</span>
-            <HoverTooltip text={'oh hello!'} />
+            {value}
+            {/* <HoverTooltip text={'oh hello!'} /> */}
           </div>
           <div
             className={`${
               newNode ? 'animate-grow-in-slide-right scale-0 ' : ''
             }${
               remove ? 'animate-shrink-out-spin ' : ''
-            }flex items-center justify-center p-4 text-2xl text-black`}
+            }node flex items-center justify-center p-4 text-2xl text-black`}
             id={`node-${id}-pointer`}
           >
             <i className='fa-solid fa-arrow-right'></i>

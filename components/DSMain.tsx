@@ -5,15 +5,13 @@ import { EventLogTextContext } from '@/contexts/EventLogText'
 import LinkedList from './_structures/LinkedList'
 import EventLog from './EventLog'
 import SelectedItemInfo from './SelectedItemInfo'
-import { SelectedItemInfoTextContext } from '@/contexts/SelectedItemInfoText'
+import { SelectedItemContext } from '@/contexts/SelectedItem'
 
 const DSMain = () => {
   const { structure } = useContext(CurrentDSContext)
   const { eventLogTextArr, setEventLogTextArr } =
     useContext(EventLogTextContext)
-  const { selectedItemInfoTextArr, setSelectedItemInfoTextArr } = useContext(
-    SelectedItemInfoTextContext
-  )
+  const { selectedItem, setSelectedItem } = useContext(SelectedItemContext)
 
   const dataStructures = {
     'Linked List': LinkedList,
@@ -54,7 +52,9 @@ const DSMain = () => {
     <main className='ds-main-wrapper ds-window-max-h flex flex-row flex-1 w-full'>
       {/* //// DS DETAILS SIDEBAR (wide screen only)- Shows text representing current data strucutre, or current node if node selected */}
       <section className='ds-side-details-wrapper md:lg:max-w-xs md:lg:min-w-[15rem]  md:lg:block hidden bg-gray-900 border-r-2 border-black'>
-        <SelectedItemInfo selectedItemTextArr={selectedItemInfoTextArr} />
+        <SelectedItemInfo
+          selectedItemTextArr={selectedItem ? selectedItem.textArr : ['']}
+        />
       </section>
       {/* //// MAIN CENTRAL DISPLAY */}
       <section className='ds-central-wrapper lg:mx-0 lg:max-w-none flex flex-col flex-1 w-full h-full max-w-screen-lg'>

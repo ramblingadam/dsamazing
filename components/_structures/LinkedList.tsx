@@ -1,11 +1,17 @@
-import { useEffect, useState, useRef, useContext } from 'react'
+import {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  MouseEventHandler,
+} from 'react'
 import { gsap } from 'gsap'
 //// Components
 import Node from './Node'
 import EventLog from '../EventLog'
 import DSActions from '../DSActions/DSActions'
 import { EventLogTextContext } from '@/contexts/EventLogText'
-import { SelectedItemInfoTextContext } from '@/contexts/SelectedItemInfoText'
+import { SelectedItemContext } from '@/contexts/SelectedItem'
 
 //// --- STRUCTURES ---
 //// LINKED LIST
@@ -129,9 +135,7 @@ const LinkedList = () => {
 
   const { eventLogTextArr, setEventLogTextArr } =
     useContext(EventLogTextContext)
-  const { selectedItemInfoTextArr, setSelectedItemInfoTextArr } = useContext(
-    SelectedItemInfoTextContext
-  )
+  const { setSelectedItem } = useContext(SelectedItemContext)
 
   //// This updates a node counter which we use in combination with a node value's index to ensure unique keys are assigned to every node rendered from the LinkedListArray. This ensure React renders new and updated values properly.
   const updateCounter = () => {
@@ -149,9 +153,13 @@ const LinkedList = () => {
     setEventLogTextArr(newEventLogArr)
   }
 
-  //// Updates the text in SelectedItemInfo area.
-  const updateSelectedItemInfo = (selectedItemInfo: string[]) => {
-    setSelectedItemInfoTextArr(selectedItemInfo)
+  const handleDSViewClick = (e: MouseEvent) => {
+    console.log(e)
+    if (e?.target) {
+      if (!(e.target as HTMLElement).classList.contains('node')) {
+        setSelectedItem({ id: '', textArr: ['Linked List Yo!'] })
+      }
+    }
   }
 
   ////Triggers update of text in SelectedItemInfo area.
@@ -332,7 +340,10 @@ const LinkedList = () => {
   //! JSX
   return (
     <div className='ds-window-wrapper flex flex-col flex-1 h-full'>
-      <section className='ds-view-wrapper scrollbar scroll-smooth flex flex-row flex-wrap items-start content-start justify-center flex-1 mx-4 overflow-y-auto'>
+      <section
+        className='ds-view-wrapper scrollbar scroll-smooth flex flex-row flex-wrap items-start content-start justify-center flex-1 mx-4 overflow-y-auto'
+        onClick={handleDSViewClick}
+      >
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
