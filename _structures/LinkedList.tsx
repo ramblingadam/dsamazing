@@ -102,6 +102,7 @@ class LL {
       const newLLNodeArrValue = {
         value: current.value,
         order: index,
+        next: current.next ? current.next.value : 'null',
       }
       result.push(newLLNodeArrValue)
       current = current.next

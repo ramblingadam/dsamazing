@@ -5,6 +5,7 @@ import Node from './Node'
 import EventLog from '../EventLog'
 import DSActions from '../DSActions/DSActions'
 import { EventLogTextContext } from '@/contexts/EventLogText'
+import { SelectedItemInfoTextContext } from '@/contexts/SelectedItemInfoText'
 
 //// --- STRUCTURES ---
 //// LINKED LIST
@@ -124,12 +125,13 @@ const LinkedList = () => {
   const [nodeCounter, setNodeCounter] = useState<number>(0)
   const newNodeRef = useRef(0)
   const [nodeToRemove, setNodeToRemove] = useState<number>(-1)
+  // const [selectedItem, setSelectedItem] = useState<
 
-  // const [eventLogArr, setEventLogArr] = useState<string[]>([
-  //   `Let's get started!`,
-  // ])
   const { eventLogTextArr, setEventLogTextArr } =
     useContext(EventLogTextContext)
+  const { selectedItemInfoTextArr, setSelectedItemInfoTextArr } = useContext(
+    SelectedItemInfoTextContext
+  )
 
   //// This updates a node counter which we use in combination with a node value's index to ensure unique keys are assigned to every node rendered from the LinkedListArray. This ensure React renders new and updated values properly.
   const updateCounter = () => {
@@ -146,6 +148,14 @@ const LinkedList = () => {
     // console.log(newEventLogArr)
     setEventLogTextArr(newEventLogArr)
   }
+
+  //// Updates the text in SelectedItemInfo area.
+  const updateSelectedItemInfo = (selectedItemInfo: string[]) => {
+    setSelectedItemInfoTextArr(selectedItemInfo)
+  }
+
+  ////Triggers update of text in SelectedItemInfo area.
+  useEffect(() => {}, [linkedList])
 
   //! -- LINKED LIST OPS --
   //// Adds a node to the end of our linked list.

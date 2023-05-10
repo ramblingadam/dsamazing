@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react'
 import Typewriter from './TypeWriter'
 
-type EventLogProps = {
-  eventLogTextArr: string[]
+type SelectedInfoProps = {
+  selectedItemTextArr: string[]
 }
 
-const EventLog = ({ eventLogTextArr }: EventLogProps) => {
-  const eventLog = useRef<HTMLDivElement>(null)
+const SelectedItemInfo = ({ selectedItemTextArr }: SelectedInfoProps) => {
+  const selectedItemInfo = useRef<HTMLDivElement>(null)
   const [currentLineIndex, setCurrentLineIndex] = useState(1)
   const [currentlyTyping, setCurrentlyTyping] = useState<boolean>(false)
 
   useEffect(() => {
     const scrollToBottom = () => {
-      if (eventLog.current) {
-        eventLog.current.scrollTop = eventLog.current.scrollHeight
+      if (selectedItemInfo.current) {
+        selectedItemInfo.current.scrollTop =
+          selectedItemInfo.current.scrollHeight
       }
     }
 
@@ -37,11 +38,11 @@ const EventLog = ({ eventLogTextArr }: EventLogProps) => {
 
   useEffect(() => {
     let lineTimeout: NodeJS.Timeout | null = null
-    if (currentLineIndex < eventLogTextArr.length) {
+    if (currentLineIndex < selectedItemTextArr.length) {
       setCurrentlyTyping(true)
       lineTimeout = setTimeout(() => {
         setCurrentLineIndex((prevIndex) => prevIndex + 1)
-      }, eventLogTextArr[currentLineIndex].length * 10) //// Delay between each line is dependent on the number of characters in the previous line
+      }, selectedItemTextArr[currentLineIndex].length * 10) //// Delay between each line is dependent on the number of characters in the previous line
     } else {
       setCurrentlyTyping(false)
     }
@@ -49,14 +50,14 @@ const EventLog = ({ eventLogTextArr }: EventLogProps) => {
     return () => {
       if (lineTimeout) clearTimeout(lineTimeout)
     }
-  }, [currentLineIndex, eventLogTextArr])
+  }, [currentLineIndex, selectedItemTextArr])
 
   return (
     <div
       className='text-primary-200 scrollbar scroll-smooth w-full h-full p-4 overflow-y-auto font-mono bg-gray-900'
-      ref={eventLog}
+      ref={selectedItemInfo}
     >
-      {eventLogTextArr.slice(0, currentLineIndex).map((line, i) => {
+      {selectedItemTextArr.slice(0, currentLineIndex).map((line, i) => {
         const indentedLine = line.replace(/\t/g, '  ')
         return (
           <Typewriter
@@ -69,4 +70,4 @@ const EventLog = ({ eventLogTextArr }: EventLogProps) => {
   )
 }
 
-export default EventLog
+export default SelectedItemInfo

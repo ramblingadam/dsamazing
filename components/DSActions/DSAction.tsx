@@ -122,27 +122,6 @@ const DSAction = ({
       onClick={handleDSActionClick}
       onSubmit={handleSubmit}
     >
-      {/* {selected && (
-        <>
-          <input
-            ref={focusInputRef}
-            className={`${input1WidthPadding} rounded-lg transition-all duration-500`}
-            type={input1Type !== null ? input1Type : undefined}
-            value={input1Value}
-            onChange={handleInput1Change}
-            required={input1Type !== null}
-            tabIndex={selected ? undefined : -1}
-          ></input>
-          <input
-            className={`${input2WidthPadding} rounded-lg transition-all duration-500`}
-            type={input2Type !== null ? input2Type : undefined}
-            value={input2Value}
-            onChange={handleInput2Change}
-            required={input2Type !== null}
-            tabIndex={selected && input2Type ? undefined : -1}
-          ></input>
-        </>
-      )} */}
       <input
         ref={focusInput1Ref}
         className={`${input1WidthPadding} rounded-lg transition-all duration-500`}
@@ -151,6 +130,7 @@ const DSAction = ({
         onChange={handleInput1Change}
         required={input1Type !== null}
         tabIndex={selected ? undefined : -1}
+        placeholder='value'
       ></input>
       <input
         ref={focusInput2Ref}
@@ -160,6 +140,7 @@ const DSAction = ({
         onChange={handleInput2Change}
         required={input2Type !== null}
         tabIndex={selected && input2Type ? undefined : -1}
+        placeholder='index'
       ></input>
       <div
         className={`${titleWidth} ds-action-title text-primary-100 text-outline flex items-center justify-center transition-all duration-500 uppercase font-bold`}
