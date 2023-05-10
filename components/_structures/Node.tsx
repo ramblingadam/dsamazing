@@ -1,4 +1,6 @@
+import { useContext, useState } from 'react'
 import HoverTooltip from '../HoverTooltip'
+import { SelectedItemInfoTextContext } from '@/contexts/SelectedItemInfoText'
 
 //// PROPTYPES
 type NodeProps = {
@@ -7,10 +9,25 @@ type NodeProps = {
   newNode: boolean
   remove: boolean
   order: number
+  descriptionStringArr: string[]
 }
 
 //// COMPONENT
-const Node = ({ value, id, newNode, remove, order }: NodeProps) => {
+const Node = ({
+  value,
+  id,
+  newNode,
+  remove,
+  order,
+  descriptionStringArr,
+}: NodeProps) => {
+  const [selected, setSelected] = useState<Boolean>(false)
+  const { setSelectedItemInfoTextArr } = useContext(SelectedItemInfoTextContext)
+  const handleNodeClick = () => {
+    setSelectedItemInfoTextArr(descriptionStringArr)
+    setSelected(true)
+  }
+
   // console.log('remove!?!?!?')
   // console.log(value, id, newNode, remove)
   const orderClass = order <= 12 ? `order-${order} ` : `order-[${order}] `
@@ -19,6 +36,7 @@ const Node = ({ value, id, newNode, remove, order }: NodeProps) => {
       className={`${orderClass}${
         order > 2 ? 'bg-black ' : ''
       }node-wrapper flex mt-4 transition-order-1s`}
+      onClick={handleNodeClick}
     >
       {value === undefined ? (
         <div
@@ -42,6 +60,8 @@ const Node = ({ value, id, newNode, remove, order }: NodeProps) => {
           <div
             className={`${newNode ? 'animate-grow-in scale-0 ' : ''}${
               remove ? 'animate-shrink-out-spin ' : ''
+            }${
+              selected ? 'bg-highlight-300 ' : ''
             }min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group`}
             id={`node-${id}`}
           >

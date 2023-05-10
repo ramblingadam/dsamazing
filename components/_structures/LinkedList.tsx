@@ -104,6 +104,7 @@ class LL {
       const newLLNodeArrValue = {
         value: current.value,
         order: index,
+        next: current.next ? current.next.value.toString() : 'null',
       }
       result.push(newLLNodeArrValue)
       current = current.next
@@ -114,7 +115,7 @@ class LL {
 
 interface LLNodeArrValue {
   value: string | number
-  // next: string
+  next: string
   order: number
 }
 
@@ -125,7 +126,6 @@ const LinkedList = () => {
   const [nodeCounter, setNodeCounter] = useState<number>(0)
   const newNodeRef = useRef(0)
   const [nodeToRemove, setNodeToRemove] = useState<number>(-1)
-  // const [selectedItem, setSelectedItem] = useState<
 
   const { eventLogTextArr, setEventLogTextArr } =
     useContext(EventLogTextContext)
@@ -336,11 +336,12 @@ const LinkedList = () => {
         {linkedListArray.length === 0 ? (
           <Node
             key={`${nodeCounter}--1`}
-            id={'0'}
+            id={'-1'}
             value={undefined}
             newNode={true}
             remove={false}
             order={0}
+            descriptionStringArr={['']}
           />
         ) : (
           linkedListArray.map((node, i) => (
@@ -352,6 +353,10 @@ const LinkedList = () => {
                 newNode={i === newNodeRef.current}
                 remove={i === nodeToRemove}
                 order={node.order}
+                descriptionStringArr={[
+                  `LLNode`,
+                  `\t{value: ${node.value}, next: ${node.next}}`,
+                ]}
               />
 
               {i === linkedListArray.length - 1 && (
@@ -362,6 +367,7 @@ const LinkedList = () => {
                   newNode={i === newNodeRef.current}
                   remove={i === nodeToRemove}
                   order={node.order + 1}
+                  descriptionStringArr={[`null`]}
                 />
               )}
             </>
