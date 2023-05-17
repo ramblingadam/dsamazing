@@ -71,23 +71,6 @@ const DSMain = () => {
         <EventLog eventLogTextArr={eventLogTextArr} />
       </section>
     </main>
-    // <main className='flex flex-col w-full h-full'>
-    //   //// DS DETAILS SIDEBAR (wide screen only)- Shows text representing
-    //   current data strucutre, or current node if node selected
-    //   <section className='ds-details-wrapper w-full max-w-xs'></section>
-    //   //// MAIN CENTRAL DISPLAY
-    //   <section className='ds-window-wrapper'>
-    //     //// DS Display area.
-    //     <section className='ds-view-wrapper'></section>
-    //     //// DS Actions control panel.
-    //     {/* <section className='ds-actions-wrapper'></section> */}
-    //     {/* <DSActions /> */}
-    //     //// Eventlog location on small screens. Toggle to swap between event log and DS details view.
-    //     <section className='ds-eventlog-wrapper'></section>
-    //   </section>
-    //   //// EVENT LOG SIDEBAR (wide screen only)
-    //   <section className='ds-eventlog-wrapper w-full max-w-xs'></section>
-    // </main>
   )
 }
 

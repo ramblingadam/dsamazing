@@ -153,7 +153,7 @@ const LinkedList = () => {
     setEventLogTextArr(newEventLogArr)
   }
 
-  const handleDSViewClick = (e: MouseEvent) => {
+  const handleDSViewClick: MouseEventHandler<HTMLElement> = (e) => {
     console.log(e)
     if (e?.target) {
       if (!(e.target as HTMLElement).classList.contains('node')) {

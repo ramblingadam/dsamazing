@@ -28,7 +28,7 @@ const Node = ({
   useEffect(() => {
     console.log(selectedItem, node)
     if (selectedItem?.id === node?.current?.id) {
-      console.log('we selectin')
+      // console.log('we selectin')
       setSelected(true)
     } else {
       setSelected(false)
@@ -77,7 +77,7 @@ const Node = ({
               remove ? 'animate-shrink-out-spin ' : ''
             }${
               selected ? 'bg-highlight-300 ' : ''
-            }node min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group`}
+            }node min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group duration-500`}
             id={`node-${id}`}
             ref={node}
           >
