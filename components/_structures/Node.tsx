@@ -26,9 +26,11 @@ const Node = ({
   const node = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
-    console.log(selectedItem, node)
+    // console.log(selectedItem, node)
+    console.log(node)
+    // console.log(selectedItem, node.current.id)
     if (selectedItem?.id === node?.current?.id) {
-      // console.log('we selectin')
+      console.log('we selectin')
       setSelected(true)
     } else {
       setSelected(false)
@@ -38,6 +40,7 @@ const Node = ({
   const handleNodeClick = () => {
     if (node.current !== null) {
       setSelectedItem({ id: node.current.id, textArr: descriptionStringArr })
+      // setTimeout(() => console.log(selectedItem), 500)
     }
   }
 

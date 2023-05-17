@@ -131,6 +131,7 @@ const DSAction = ({
         required={input1Type !== null}
         tabIndex={selected ? undefined : -1}
         placeholder='value'
+        maxLength={20}
       ></input>
       <input
         ref={focusInput2Ref}
@@ -141,6 +142,7 @@ const DSAction = ({
         required={input2Type !== null}
         tabIndex={selected && input2Type ? undefined : -1}
         placeholder='index'
+        maxLength={20}
       ></input>
       <div
         className={`${titleWidth} ds-action-title text-primary-100 text-outline flex items-center justify-center transition-all duration-500 uppercase font-bold`}

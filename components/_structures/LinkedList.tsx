@@ -154,7 +154,6 @@ const LinkedList = () => {
   }
 
   const handleDSViewClick: MouseEventHandler<HTMLElement> = (e) => {
-    console.log(e)
     if (e?.target) {
       if (!(e.target as HTMLElement).classList.contains('node')) {
         setSelectedItem({ id: '', textArr: ['Linked List Yo!'] })

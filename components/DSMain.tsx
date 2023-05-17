@@ -51,7 +51,7 @@ const DSMain = () => {
   return (
     <main className='ds-main-wrapper ds-window-max-h flex flex-row flex-1 w-full'>
       {/* //// DS DETAILS SIDEBAR (wide screen only)- Shows text representing current data strucutre, or current node if node selected */}
-      <section className='ds-side-details-wrapper md:lg:max-w-xs md:lg:min-w-[15rem]  md:lg:block hidden bg-gray-900 border-r-2 border-black'>
+      <section className='ds-side-details-wrapper md:lg:max-w-xs md:lg:w-[20rem]  md:lg:block hidden bg-gray-900 border-r-2 border-black'>
         <SelectedItemInfo
           selectedItemTextArr={selectedItem ? selectedItem.textArr : ['']}
         />
