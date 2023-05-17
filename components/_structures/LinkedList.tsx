@@ -156,7 +156,11 @@ const LinkedList = () => {
   const handleDSViewClick: MouseEventHandler<HTMLElement> = (e) => {
     if (e?.target) {
       if (!(e.target as HTMLElement).classList.contains('node')) {
-        setSelectedItem({ id: '', textArr: ['Linked List Yo!'] })
+        setSelectedItem({
+          id: '',
+          textArr: ['Linked List Yo!'],
+        })
+        console.log('did NOT click a node')
       }
     }
   }
@@ -345,7 +349,7 @@ const LinkedList = () => {
       >
         {linkedListArray.length === 0 ? (
           <Node
-            key={`${nodeCounter}--1`}
+            key={`${nodeCounter}-empty`}
             id={'-1'}
             value={undefined}
             newNode={true}
@@ -364,7 +368,7 @@ const LinkedList = () => {
                 remove={i === nodeToRemove}
                 order={node.order}
                 descriptionStringArr={[
-                  `LLNode`,
+                  `Selected: LLNode`,
                   `\t{value: ${node.value}, next: ${node.next}}`,
                 ]}
               />

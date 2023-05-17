@@ -26,21 +26,29 @@ const Node = ({
   const node = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
+    // console.log('---')
     // console.log(selectedItem, node)
-    console.log(node)
+    // console.log(node.current)
     // console.log(selectedItem, node.current.id)
-    if (selectedItem?.id === node?.current?.id) {
-      console.log('we selectin')
+    if (selectedItem?.id === node?.current?.id && !selected) {
+      // if (selectedItem?.id === node.curr) {
+
       setSelected(true)
+      // console.log(selected)
     } else {
       setSelected(false)
+      // console.log(selected)
     }
   }, [selectedItem])
 
   const handleNodeClick = () => {
+    // console.log(node.current.id)
     if (node.current !== null) {
-      setSelectedItem({ id: node.current.id, textArr: descriptionStringArr })
-      // setTimeout(() => console.log(selectedItem), 500)
+      setSelectedItem({
+        id: `node-${id}`,
+        textArr: [...descriptionStringArr],
+      })
+      // setTimeout(() => console.log(selectedItem, node.current.id), 500)
     }
   }
 
@@ -79,8 +87,8 @@ const Node = ({
             className={`${newNode ? 'animate-grow-in scale-0 ' : ''}${
               remove ? 'animate-shrink-out-spin ' : ''
             }${
-              selected ? 'bg-highlight-300 ' : ''
-            }node min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 bg-secondary-400 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group duration-500`}
+              selected ? 'bg-highlight-300 ' : 'bg-secondary-400 '
+            }node min-w-[3.5rem] z-10 w-fit p-4 h-14 flex items-center border-2 text-outline border-black justify-center text-xl font-bold text-primary-100 rounded-full shadow-inner3d hover:bg-highlight-300 hover:cursor-pointer transition-colors font-mono relative group duration-500`}
             id={`node-${id}`}
             ref={node}
           >
