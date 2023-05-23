@@ -26,18 +26,10 @@ const Node = ({
   const node = useRef<null | HTMLDivElement>(null)
 
   useEffect(() => {
-    // console.log('---')
-    // console.log(selectedItem, node)
-    // console.log(node.current)
-    // console.log(selectedItem, node.current.id)
     if (selectedItem?.id === node?.current?.id && !selected) {
-      // if (selectedItem?.id === node.curr) {
-
       setSelected(true)
-      // console.log(selected)
     } else {
       setSelected(false)
-      // console.log(selected)
     }
   }, [selectedItem])
 

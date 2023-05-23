@@ -101,6 +101,25 @@ class LL {
     return false
   }
 
+  pop() {
+    if (!this.head) return false
+    let index = 0
+    if (this.head.next === null) {
+      this.head = null
+      return index
+    } else {
+      let current: LLNode | null = this.head
+      let prev: LLNode | null = null
+      while (current.next) {
+        index++
+        prev = current
+        current = current.next
+      }
+      if (prev) prev.next = null
+      return index
+    }
+  }
+
   toArray() {
     if (this.head === null) return []
     const result: LLNodeArrValue[] = []
@@ -158,7 +177,7 @@ const LinkedList = () => {
       if (!(e.target as HTMLElement).classList.contains('node')) {
         setSelectedItem({
           id: '',
-          textArr: ['Linked List Yo!'],
+          textArr: ['Select a node for details.'],
         })
         console.log('did NOT click a node')
       }
@@ -209,6 +228,23 @@ const LinkedList = () => {
       }, 1000)
       updateCounter()
       updateEventLog(`First instance of value ${n} removed.`)
+    }
+  }
+  //// Removes the last node in the list from the list.
+  const pop = () => {
+    newNodeRef.current = -1
+    const result = linkedList.pop()
+    if (result === false) {
+      updateEventLog(`List is empty. Nothing to pop.`)
+    } else {
+      setNodeToRemove(result)
+      const removeAnimationTimeout = setTimeout(() => {
+        setNodeToRemove(-1)
+        setLinkedListArray(linkedList.toArray())
+        clearTimeout(removeAnimationTimeout)
+      }, 1000)
+      updateCounter()
+      updateEventLog(`Last node in list removed.`)
     }
   }
 
@@ -295,13 +331,24 @@ const LinkedList = () => {
     {
       //////////////////////////
       //// REMOVE VALUE FROM LIST
-      //// Adds a node to the start of a Linked List.
+      //// Traverse list starting at the head, removing the first node found with the specified value.
       //////////////////////////
       title: 'remove',
       input1Type: 'text',
       input2Type: null,
       icon: { class: 'fa-solid fa-subtract', text: '' },
       action: remove,
+    },
+    {
+      //////////////////////////
+      //// REMOVE LAST NODE FROM LIST
+      //// Traverse list starting at the head, removing the first node found with the specified value.
+      //////////////////////////
+      title: 'pop',
+      input1Type: null,
+      input2Type: null,
+      icon: { class: 'fa-solid fa-subtract', text: '' },
+      action: pop,
     },
     {
       //////////////////////////
@@ -355,7 +402,7 @@ const LinkedList = () => {
             newNode={true}
             remove={false}
             order={0}
-            descriptionStringArr={['']}
+            descriptionStringArr={['Please add a node.']}
           />
         ) : (
           linkedListArray.map((node, i) => (

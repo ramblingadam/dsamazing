@@ -93,6 +93,21 @@ class LL {
     return false
   }
 
+  pop() {
+    if (!this.head) return false
+    if (this.head.next === null) this.head = null
+    else {
+      let current: LLNode | null = this.head
+      let prev: LLNode | null = null
+      while (current.next) {
+        current = current.next
+        prev = current
+      }
+      if (prev) prev.next = null
+      return this
+    }
+  }
+
   toArray() {
     if (this.head === null) return []
     const result: LLNodeArrValue[] = []

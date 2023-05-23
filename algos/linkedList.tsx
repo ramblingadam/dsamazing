@@ -18,22 +18,11 @@ class LL {
   tail: DSNodeOrNull
   size: number
 
-  constructor(value:any) {
+  constructor(value: any) {
     this.head = value ? new DSNode(value) : null
     this.tail = value ? this.head : null
     this.size = value ? 1 : 0
   }
 }
 
-
-let node = new DSNode('potato')
-
-module.exports = {LL, DSNode}
-
-console.log(node)
-
-
-
-
-
-// module.exports = (LL, DSNode)
+module.exports = { LL, DSNode }

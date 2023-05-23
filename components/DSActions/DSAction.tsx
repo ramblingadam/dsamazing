@@ -44,7 +44,7 @@ const DSAction = ({
       if (input1Type && input2Type) {
         setTitleWidth('w-1/3 ')
         setinput1WidthPadding('w-1/3 p-1 ')
-        setinput2WidthPadding('w-1/3 p-1 ml-1')
+        setinput2WidthPadding('w-1/3 p-1 ml-1 ')
       } else if (input1Type) {
         setTitleWidth('w-1/2 ')
         setinput1WidthPadding('w-1/2 p-1 ')
@@ -77,8 +77,12 @@ const DSAction = ({
         if (target.tagName === 'INPUT') return
       }
 
-      //// If one or both inputs are both required and empty, do nothing.
-      // TODO: Alert user to fill a thing.
+      //// If action does not require any inputs, just do the action.
+      if (!input1Type && !input2Type) {
+        ;(action as () => void)()
+      }
+
+      //// If one or both inputs are both required and empty, flash the empty inputs red.
       if (
         (input1Type && input1Value === '') ||
         (input2Type && input2Value === '')

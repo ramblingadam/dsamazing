@@ -4,10 +4,10 @@ import MainMenuItem from './MainMenuItem'
 const MainMenu = () => {
   const dataStructures = [
     'Linked List',
-    'Tree',
-    'Binary Tree',
-    'Binary Search Tree',
-    'Hash Map',
+    // 'Tree',
+    // 'Binary Tree',
+    // 'Binary Search Tree',
+    // 'Hash Map',
   ]
 
   return (
