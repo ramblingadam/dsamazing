@@ -1,6 +1,7 @@
 type ActionType =
   | ((n: string | number | undefined) => void)
   | ((n: string | number, i: number) => void)
+  | (() => void)
 
 export type DSActionArrayPropTypes = {
   title: string

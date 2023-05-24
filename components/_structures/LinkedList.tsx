@@ -16,10 +16,10 @@ import { SelectedItemContext } from '@/contexts/SelectedItem'
 //// --- STRUCTURES ---
 //// LINKED LIST
 class LLNode {
-  value: number
+  value: number | string
   next: LLNode | null
 
-  constructor(value: number) {
+  constructor(value: number | string) {
     this.value = value
     this.next = null
   }
@@ -33,7 +33,7 @@ class LL {
     this.head = value !== null ? new LLNode(value) : null
     this.length = value !== null ? 1 : 0
   }
-  append(value: number) {
+  append(value: number | string) {
     if (!this.head) {
       this.head = new LLNode(value)
       this.length++
@@ -46,7 +46,7 @@ class LL {
     }
     return this
   }
-  prepend(value: number) {
+  prepend(value: number | string) {
     if (!this.head) {
       this.head = new LLNode(value)
       this.length++
@@ -57,7 +57,7 @@ class LL {
     }
     return this
   }
-  remove(value: number) {
+  remove(value: number | string) {
     // console.log(`Searching for ${value}...`)
     if (!this.head) return false
     let index = 0
@@ -100,7 +100,6 @@ class LL {
     }
     return false
   }
-
   pop() {
     if (!this.head) return false
     let index = 0
@@ -118,6 +117,32 @@ class LL {
       if (prev) prev.next = null
       return index
     }
+  }
+  insertAt(value: string | number, index: number) {
+    //// If list is empty, insert newvalue as head, regardless of supplied index.
+    if (!this.head) {
+      this.head = new LLNode(value)
+      //// If index provided is zero, create new node and set it as the new head. Adjust pointers.
+    } else if (index === 0) {
+      const oldHead = this.head
+      this.head = new LLNode(value)
+      this.head.next = oldHead
+      //// Otherwise, index provided is > 0. Crawl through list until we reachthe desired index. Create the new node, and adjust pointers accordingly.
+    } else {
+      let currentIndex = 0
+      let current: LLNode | null = this.head
+      let prev: LLNode | null = null
+      while (currentIndex < index) {
+        prev = current
+        current = current?.next ? current.next : null
+        currentIndex++
+      }
+      const newNode = new LLNode(value)
+      newNode.next = current ? current : null
+      if (prev) prev.next = newNode
+    }
+    //// Return the updated list.
+    return this
   }
 
   toArray() {
@@ -179,7 +204,6 @@ const LinkedList = () => {
           id: '',
           textArr: ['Select a node for details.'],
         })
-        console.log('did NOT click a node')
       }
     }
   }
@@ -189,7 +213,7 @@ const LinkedList = () => {
 
   //! -- LINKED LIST OPS --
   //// Adds a node to the end of our linked list.
-  const appendList = (n: any) => {
+  const appendList = (n: string | number) => {
     newNodeRef.current = linkedListArray.length
     // console.log(newNodeRef.current)
     setLinkedList(linkedList.append(n))
@@ -200,10 +224,9 @@ const LinkedList = () => {
     )
   }
   //// Adds a node to the start of our linkedlist.
-  const prependList = (n: any) => {
+  const prependList = (n: string | number) => {
     newNodeRef.current = 0
     const next = `${linkedList.head?.value}`
-    console.log(newNodeRef.current)
     setLinkedList(linkedList.prepend(n))
     setLinkedListArray(linkedList.toArray())
     updateCounter()
@@ -211,8 +234,19 @@ const LinkedList = () => {
       `Created new Linked List Node:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
     )
   }
+  //// Adds a node to the start of our linkedlist.
+  const insertAt = (n: string | number, i: number) => {
+    newNodeRef.current = i
+    const next = `${linkedList.head?.value}`
+    setLinkedList(linkedList.insertAt(n, i))
+    setLinkedListArray(linkedList.toArray())
+    updateCounter()
+    updateEventLog(
+      `Created new Linked List Node at index ${i}:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
+    )
+  }
   //// Removes the first node found with the given value.
-  const remove = (n: any) => {
+  const remove = (n: string | number) => {
     newNodeRef.current = -1
     //// linkedList.remove() returns false if the value is not found, or the index of the removed item if found.
     const result = linkedList.remove(n)
@@ -359,29 +393,7 @@ const LinkedList = () => {
       input1Type: 'text',
       input2Type: 'text',
       icon: { class: 'fa-solid fa-add', text: '' },
-      action: remove,
-    },
-    {
-      //////////////////////////
-      //// INSERT VALUE AT INDEX OF LIST
-      //// Adds a node at the desired index of a Linked List.
-      //////////////////////////
-      title: 'insert2',
-      input1Type: 'text',
-      input2Type: 'text',
-      icon: { class: 'fa-solid fa-add', text: '' },
-      action: remove,
-    },
-    {
-      //////////////////////////
-      //// INSERT VALUE AT INDEX OF LIST
-      //// Adds a node at the desired index of a Linked List.
-      //////////////////////////
-      title: 'insert3',
-      input1Type: 'text',
-      input2Type: 'text',
-      icon: { class: 'fa-solid fa-add', text: '' },
-      action: remove,
+      action: insertAt,
     },
   ]
 
@@ -402,7 +414,10 @@ const LinkedList = () => {
             newNode={true}
             remove={false}
             order={0}
-            descriptionStringArr={['Please add a node.']}
+            descriptionStringArr={[
+              'Please add a node.',
+              // `React Key: ${nodeCounter}-empty`,
+            ]}
           />
         ) : (
           linkedListArray.map((node, i) => (
@@ -417,6 +432,7 @@ const LinkedList = () => {
                 descriptionStringArr={[
                   `Selected: LLNode`,
                   `\t{value: ${node.value}, next: ${node.next}}`,
+                  // `React Key: ${nodeCounter}-${i}`,
                 ]}
               />
 
@@ -428,7 +444,10 @@ const LinkedList = () => {
                   newNode={i === newNodeRef.current}
                   remove={i === nodeToRemove}
                   order={node.order + 1}
-                  descriptionStringArr={[`null`]}
+                  descriptionStringArr={[
+                    `null`,
+                    // `React Key: ${nodeCounter}-${i}-null`,
+                  ]}
                 />
               )}
             </>
