@@ -36,7 +36,6 @@ class LL {
   append(value: number | string) {
     if (!this.head) {
       this.head = new LLNode(value)
-      this.length++
     } else {
       let current = this.head
       while (current.next) {
@@ -44,17 +43,18 @@ class LL {
       }
       current.next = new LLNode(value)
     }
+    this.length++
     return this
   }
   prepend(value: number | string) {
     if (!this.head) {
       this.head = new LLNode(value)
-      this.length++
     } else {
       const newNode = new LLNode(value)
       newNode.next = this.head
       this.head = newNode
     }
+    this.length++
     return this
   }
   remove(value: number | string) {
@@ -105,7 +105,6 @@ class LL {
     let index = 0
     if (this.head.next === null) {
       this.head = null
-      return index
     } else {
       let current: LLNode | null = this.head
       let prev: LLNode | null = null
@@ -115,8 +114,9 @@ class LL {
         current = current.next
       }
       if (prev) prev.next = null
-      return index
     }
+    this.length--
+    return index
   }
   insertAt(value: string | number, index: number) {
     //// If list is empty, insert newvalue as head, regardless of supplied index.
@@ -127,21 +127,25 @@ class LL {
       const oldHead = this.head
       this.head = new LLNode(value)
       this.head.next = oldHead
-      //// Otherwise, index provided is > 0. Crawl through list until we reachthe desired index. Create the new node, and adjust pointers accordingly.
+      //// If index provided is greater than the linked list's length, insert the new value at the end.
+      //// Otherwise, index provided is > 0. Crawl through list until we reachthe desired index or the end of the list
     } else {
       let currentIndex = 0
       let current: LLNode | null = this.head
       let prev: LLNode | null = null
-      while (currentIndex < index) {
+      while (currentIndex < index && current) {
         prev = current
         current = current?.next ? current.next : null
         currentIndex++
+        // if (currentIndex > this.length) break
       }
       const newNode = new LLNode(value)
       newNode.next = current ? current : null
       if (prev) prev.next = newNode
+      console.log(`prev:`, prev, 'newNode:', newNode)
     }
     //// Return the updated list.
+    this.length++
     return this
   }
 
@@ -202,7 +206,12 @@ const LinkedList = () => {
       if (!(e.target as HTMLElement).classList.contains('node')) {
         setSelectedItem({
           id: '',
-          textArr: ['Select a node for details.'],
+          textArr: [
+            'Select a node for details.',
+            `List Info:`,
+            `\thead: ${linkedList.head ? linkedList.head.value : 'null'}`,
+            `\tlength: ${linkedList.length}`,
+          ],
         })
       }
     }
@@ -215,6 +224,16 @@ const LinkedList = () => {
         id: '',
         textArr: [
           'Add a node to get started. Then, select a node to see its details here!',
+        ],
+      })
+    } else {
+      setSelectedItem({
+        id: '',
+        textArr: [
+          'Select a node for details.',
+          `List Info:`,
+          `\thead: ${linkedList.head ? linkedList.head.value : 'null'}`,
+          `\tlength: ${linkedList.length}`,
         ],
       })
     }
@@ -244,16 +263,17 @@ const LinkedList = () => {
       `Created new Linked List Node:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
     )
   }
-  //// Adds a node to the start of our linkedlist.
+  //// Adds a node to our linkedlist at the specified index.
   const insertAt = (n: string | number, i: number) => {
-    newNodeRef.current = i
-    const next = `${linkedList.head?.value}`
+    newNodeRef.current = i < linkedList.length ? i : linkedList.length
+    const next = `${linkedList.head?.value}` // TODO << Find a simple way to track the Next value of whatever node we just inserted. though this could be null too!
     setLinkedList(linkedList.insertAt(n, i))
     setLinkedListArray(linkedList.toArray())
     updateCounter()
     updateEventLog(
-      `Created new Linked List Node at index ${i}:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
+      `Created new Linked List Node at index ${newNodeRef.current}:\n\t{value: ${n}, next:\n\t\tLLNode {value: ${next}, next: ...}\n\t}`
     )
+    console.log(linkedList)
   }
   //// Removes the first node found with the given value.
   const remove = (n: string | number) => {
