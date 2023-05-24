@@ -209,9 +209,19 @@ const LinkedList = () => {
   }
 
   ////Triggers update of text in SelectedItemInfo area.
-  useEffect(() => {}, [linkedList])
+  useEffect(() => {
+    if (linkedListArray.length === 0) {
+      setSelectedItem({
+        id: '',
+        textArr: [
+          'Add a node to get started. Then, select a node to see its details here!',
+        ],
+      })
+    }
+  }, [linkedListArray])
 
   //! -- LINKED LIST OPS --
+  //! These operations are passed into their respective DSActions to determine what happens when each action is clicked.
   //// Adds a node to the end of our linked list.
   const appendList = (n: string | number) => {
     newNodeRef.current = linkedListArray.length
@@ -339,6 +349,8 @@ const LinkedList = () => {
   //   }
   // }, [linkedListArray])
 
+  //! -- LINKED LIST DSACTIONS ARRAY --
+  //! This array covers the metadata and fcuntions required for each DSAction for the current Data Structure.
   const actions = [
     {
       //////////////////////////
