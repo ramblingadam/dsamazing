@@ -57,7 +57,7 @@ const EventLog = ({ eventLogTextArr }: EventLogProps) => {
       ref={eventLog}
     >
       {eventLogTextArr.slice(0, currentLineIndex).map((line, i) => {
-        const indentedLine = line.replace(/\t/g, '  ')
+        const indentedLine = line.replace(/\t/g, ' ')
         return (
           <Typewriter
             key={i}

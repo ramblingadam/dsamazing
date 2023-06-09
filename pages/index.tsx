@@ -18,7 +18,7 @@ export default function Home() {
   ])
   const [selectedItem, setSelectedItem] = useState<SelectedItem>({
     id: null,
-    textArr: ['hi'],
+    textArr: [''],
   })
 
   return (
